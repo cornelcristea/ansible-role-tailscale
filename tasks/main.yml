@@ -9,7 +9,7 @@
     group: root
     mode: 0755
 
-- name: Create tailscale container
+- name: Start tailscale container
   community.docker.docker_container:
     name: tailscale
     image: "{{ tailscale_docker_image }}"
