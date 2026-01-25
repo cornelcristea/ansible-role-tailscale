@@ -1,0 +1,8 @@
+---
+# defaults file for tailscale
+
+tailscale_hostname: "{{ ansible_hostname }}"
+
+# generate auth key in https://login.tailscale.com/admin/settings/keys
+# use ansible vault to encrypted the key
+tailscale_auth_key: "YOUR_TAILSCLAE_AUTH_KEY"

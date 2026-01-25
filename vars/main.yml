@@ -1,0 +1,7 @@
+---
+# vars file for tailscale
+tailscale_state_dir: "/etc/tailscale"
+
+tailscale_docker_image: "tailscale/tailscale:stable"
+
+tailscale_port: 41641

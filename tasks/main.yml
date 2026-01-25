@@ -1,0 +1,27 @@
+---
+# tasks file for tailscale
+---
+- name: Create tailscale directory
+  ansible.builtin.file:
+    path: "{{ tailscale_state_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Create tailscale container
+  community.docker.docker_container:
+    name: tailscale
+    image: "{{ tailscale_docker_image }}"
+    state: started
+    restart_policy: unless-stopped
+    env:
+      TS_AUTHKEY: "{{ tailscale_auth_key }}"
+      TS_HOSTNAME: "{{ tailscale_hostname }}"
+      TS_STATE_DIR: "{{ tailscale_state_dir }}"
+    network_mode: "host"
+    capabilities:
+      - NET_ADMIN
+      - SYS_MODULE
+    devices:
+      - /dev/net/tun:/dev/net/tun
