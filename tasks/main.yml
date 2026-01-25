@@ -3,7 +3,7 @@
 
 - name: Create tailscale directory
   ansible.builtin.file:
-    path: "{{ tailscale_state_dir }}"
+    path: "{{ tailscale_dir }}"
     state: directory
     owner: root
     group: root
@@ -18,9 +18,9 @@
     env:
       TS_AUTHKEY: "{{ tailscale_auth_key }}"
       TS_HOSTNAME: "{{ tailscale_hostname }}"
-      TS_STATE_DIR: "{{ tailscale_state_dir }}"
+      TS_STATE_DIR: "{{ tailscale_dir }}"
     volumes:
-      - "{{ tailscale_state_dir }}:/var/lib/tailscale"
+      - "{{ tailscale_dir }}:/var/lib/tailscale"
     network_mode: "host"
     capabilities:
       - NET_ADMIN
