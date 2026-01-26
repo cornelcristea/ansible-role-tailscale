@@ -1,11 +1,10 @@
 ---
 galaxy_info:
   role_name: tailscale
-  author: Cornel Cristea
-  description: Ansible role to deploy Tailscale as docker conatiner
+  author: cornelcristea
+  description: Ansible role to deploy Tailscale as a Docker container
 
   license: MIT
-
   min_ansible_version: "2.18"
 
   platforms:
@@ -16,5 +15,6 @@ galaxy_info:
   galaxy_tags:
     - tailscale
     - vpn
+    - docker
 
 dependencies: []

@@ -1,0 +1,14 @@
+---
+- name: Verify
+  hosts: all
+  become: true
+  tasks:
+    - name: Check Tailscale container is running
+      community.docker.docker_container_info:
+        name: tailscale
+      register: tailscale_info
+
+    - name: Assert container is running
+      assert:
+        that:
+          - tailscale_info.container.State.Running

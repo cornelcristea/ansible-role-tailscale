@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  pre_tasks:
+    - name: Install Python dependencies for Docker modules
+      apt:
+        name:
+          - python3-requests
+          - python3-docker
+        state: present
+        update_cache: true
+
+  roles:
+    - cornelcristea.tailscale

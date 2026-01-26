@@ -1,0 +1,27 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+platforms:
+  - name: tailscale-molecule
+    image: docker.io/geerlingguy/docker-ubuntu2404-ansible
+    privileged: true
+    pre_build_image: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: converge.yml
+  inventory:
+    group_vars:
+      all:
+        tailscale_auth_key: "tskey-test-123456"
+        tailscale_hostname: "molecule-tailscale"
+
+verifier:
+  name: ansible
