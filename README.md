@@ -60,9 +60,13 @@ We welcome contributions! Here’s how you can help improve this role:
   * Add or update tests if applicable.
   * Update the README for any new variables or features.
   * Test your changes:
-  ```bash
-  ansible-playbook test.yml -i inventory
-  ```
+```bash
+ansible-playbook -i test/inventory test/test.yml 
+```
+ * Run molecule test:
+```bash
+molecule test
+```
 
 4. **Commit and push your changes**
 
