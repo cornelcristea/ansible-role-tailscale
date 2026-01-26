@@ -14,11 +14,11 @@ Ansible role to deploy **Tailscale** as docker containers, to have a VPN that ke
 ansible-galaxy install cornelcristea.tailscale
 ```
 
-## Role Variables
+## Variables
 
 The role uses the following variables:
 
-| Variable | Default | Description |
+| Name | Default | Description |
 |---------|---------|-------------|
 | `tailscale_auth_key` | *(empty)* | Auth key used to authenticate the node to Tailscale. Generate it from the Tailscale admin panel: https://login.tailscale.com/admin/settings/keys |
 | `tailscale_dir` | `/etc/tailscale` | Directory where Tailscale state, configuration, and socket files are stored inside the container or host |
@@ -26,9 +26,7 @@ The role uses the following variables:
 | `tailscale_hostname` | `{{ ansible_hostname }}` | Hostname that will appear for this node in the Tailscale admin console |
 | `tailscale_port` | `41641` | UDP port used by Tailscale for peer-to-peer WireGuard connections |
 
-
-
-## Playbook example
+## Playbook Example
 
 ```yaml
 - hosts: servers
