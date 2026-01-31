@@ -10,6 +10,7 @@
     mode: 0755
 
 - name: Start tailscale container
+  become: true
   community.docker.docker_container:
     name: tailscale
     image: "{{ tailscale_docker_image }}"
