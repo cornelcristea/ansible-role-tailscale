@@ -32,8 +32,8 @@ The role uses the following variables:
 - hosts: servers
   roles:
     - role: cornelcristea.tailsclae
-      vars:
-        tailscale_auth_key: "my-encrypted-auth-key"
+  vars:
+    tailscale_auth_key: "my-encrypted-auth-key"
 ```
 
 ## How to Contribute
