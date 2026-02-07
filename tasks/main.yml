@@ -39,4 +39,3 @@
     command: |
       tailscale set --advertise-routes={{ tailscale_advertise_routes | join(',') }}
   when: tailscale_advertise_routes | length > 0
-
