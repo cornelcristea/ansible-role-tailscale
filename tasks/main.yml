@@ -16,6 +16,7 @@
     image: "{{ tailscale_docker_image }}"
     state: started
     restart_policy: unless-stopped
+    privileged: true
     env:
       TS_AUTHKEY: "{{ tailscale_auth_key }}"
       TS_HOSTNAME: "{{ tailscale_hostname }}"
@@ -25,6 +26,17 @@
     network_mode: "host"
     capabilities:
       - NET_ADMIN
+      - NET_RAW
       - SYS_MODULE
     devices:
       - /dev/net/tun:/dev/net/tun
+
+- name: Setup subnet routes
+  become: true
+  community.docker.docker_container_exec:
+    container: tailscale
+    user: 0
+    command: |
+      tailscale set --advertise-routes={{ tailscale_advertise_routes | join(',') }}
+  when: tailscale_advertise_routes | length > 0
+

@@ -18,25 +18,28 @@ ansible-galaxy install cornelcristea.tailscale
 
 The role uses the following variables:
 
-| Name | Default | Description |
-|---------|---------|-------------|
-| `tailscale_auth_key` | *(empty)* | Auth key used to authenticate the node to Tailscale. Generate it from the Tailscale admin panel: https://login.tailscale.com/admin/settings/keys |
-| `tailscale_dir` | `/etc/tailscale` | Directory where Tailscale state, configuration, and socket files are stored inside the container or host |
-| `tailscale_docker_image` | `tailscale/tailscale:stable` | Docker image used to run the Tailscale client |
-| `tailscale_hostname` | `{{ ansible_hostname }}` | Hostname that will appear for this node in the Tailscale admin console |
-| `tailscale_port` | `41641` | UDP port used by Tailscale for peer-to-peer WireGuard connections |
+| Name | Description | Default |
+|---------|-------------|---------|
+| `tailscale_advertise_routes` | Defines the list of local network subnets that a machine should advertise to Tailscale as reachable through it.| *(empty)* |
+| `tailscale_auth_key` | Auth key used to authenticate the node to Tailscale.<br>Generate it from the Tailscale admin panel: https://login.tailscale.com/admin/settings/keys | *(empty)* |
+| `tailscale_hostname` | Hostname shown in the Tailscale admin console | `{{ ansible_hostname }}` |
 
-## Playbook Example
+## Playbook example
 
 ```yaml
-- hosts: servers
+- name: Deploy Tailscale
+  hosts: servers
+  become: true
   roles:
     - role: cornelcristea.tailsclae
   vars:
     tailscale_auth_key: "my-encrypted-auth-key"
+    tailscale_advertise_routes:
+      - "192.168.1.0/24"
+      - "10.0.0.0/24"
 ```
 
-## How to Contribute
+## How to contribute
 
 We welcome contributions! Here’s how you can help improve this role:
 
@@ -79,4 +82,4 @@ molecule test
 5. **Open a Pull Request (PR)**   
 Submit a PR from your branch. Include a clear description of your changes and why they’re needed.
 
-### We appreciate your contributions!
+**We appreciate your contributions!**
