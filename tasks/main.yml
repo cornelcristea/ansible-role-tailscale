@@ -11,6 +11,8 @@
 
 - name: Start tailscale container
   become: true
+  vars:
+    routes_defined: "{{ tailscale_routes is defined and (tailscale_routes | length > 0) }}"
   community.docker.docker_container:
     name: tailscale
     image: "{{ tailscale_docker_image }}"
@@ -21,6 +23,8 @@
       TS_AUTHKEY: "{{ tailscale_auth_key }}"
       TS_HOSTNAME: "{{ tailscale_hostname }}"
       TS_STATE_DIR: "{{ tailscale_dir }}"
+      TS_EXTRA_ARGS: >
+        {{ ('--advertise-routes=' ~ (tailscale_routes | join(','))) if routes_defined else omit }}
     volumes:
       - "{{ tailscale_dir }}:/var/lib/tailscale"
     network_mode: "host"
@@ -30,12 +34,3 @@
       - SYS_MODULE
     devices:
       - /dev/net/tun:/dev/net/tun
-
-- name: Setup subnet routes
-  become: true
-  community.docker.docker_container_exec:
-    container: tailscale
-    user: 0
-    command: |
-      tailscale set --advertise-routes={{ tailscale_advertise_routes | join(',') }}
-  when: tailscale_advertise_routes | length > 0

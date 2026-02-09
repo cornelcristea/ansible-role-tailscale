@@ -9,5 +9,5 @@ tailscale_hostname: "{{ ansible_hostname }}"
 tailscale_auth_key: []
 
 # list of routes for subnet
-# tailscale_advertise_routes: [192.168.1.0/24, 10.0.0.0/24]
-tailscale_advertise_routes: []
+# tailscale_routes: [192.168.1.0/24, 10.0.0.0/24]
+tailscale_routes: []

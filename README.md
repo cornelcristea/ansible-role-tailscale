@@ -20,9 +20,9 @@ The role uses the following variables:
 
 | Name | Description | Default |
 |---------|-------------|---------|
-| `tailscale_advertise_routes` | Defines the list of local network subnets that a machine should advertise to Tailscale as reachable through it.| *(empty)* |
 | `tailscale_auth_key` | Auth key used to authenticate the node to Tailscale.<br>Generate it from the Tailscale admin panel: https://login.tailscale.com/admin/settings/keys | *(empty)* |
 | `tailscale_hostname` | Hostname shown in the Tailscale admin console | `{{ ansible_hostname }}` |
+| `tailscale_routes` | List of routes that machine should advertise to Tailscale | *(empty)* |
 
 ## Playbook example
 
