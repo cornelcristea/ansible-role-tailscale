@@ -8,6 +8,8 @@ tailscale_hostname: "{{ ansible_hostname }}"
 # use ansible vault to encrypted the key
 tailscale_auth_key: []
 
-# list of routes for subnet
-# tailscale_routes: [192.168.1.0/24, 10.0.0.0/24]
-tailscale_routes: []
+# extra arguments list for tailscale
+# tailscale_extra_args:
+#   - "--advertise-routes=192.168.1.0/24"
+#   - "--accept-dns=false"
+tailscale_extra_args: []

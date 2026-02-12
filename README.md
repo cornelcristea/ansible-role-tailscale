@@ -22,7 +22,7 @@ The role uses the following variables:
 |---------|-------------|---------|
 | `tailscale_auth_key` | Auth key used to authenticate the node to Tailscale.<br>Generate it from the Tailscale admin panel: https://login.tailscale.com/admin/settings/keys | *(empty)* |
 | `tailscale_hostname` | Hostname shown in the Tailscale admin console | `{{ ansible_hostname }}` |
-| `tailscale_routes` | List of routes that machine should advertise to Tailscale | *(empty)* |
+| `tailscale_extra_args` | Extra agruments list for Tailscale | *(empty)* |
 
 ## Playbook example
 
@@ -34,9 +34,9 @@ The role uses the following variables:
     - role: cornelcristea.tailsclae
   vars:
     tailscale_auth_key: "my-encrypted-auth-key"
-    tailscale_advertise_routes:
-      - "192.168.1.0/24"
-      - "10.0.0.0/24"
+    tailscale_extra_args:
+      - "--advertise-routes=192.168.1.0/24"
+      - "--accept-dns=false"
 ```
 
 ## How to contribute

@@ -23,8 +23,7 @@
       TS_AUTHKEY: "{{ tailscale_auth_key }}"
       TS_HOSTNAME: "{{ tailscale_hostname }}"
       TS_STATE_DIR: "{{ tailscale_dir }}"
-      TS_EXTRA_ARGS: >
-        {{ ('--advertise-routes=' ~ (tailscale_routes | join(','))) if routes_defined else omit }}
+      TS_EXTRA_ARGS: "{{ (tailscale_extra_args | join(' ')) | default(omit) }}"
     volumes:
       - "{{ tailscale_dir }}:/var/lib/tailscale"
     network_mode: "host"
