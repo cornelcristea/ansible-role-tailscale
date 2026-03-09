@@ -20,23 +20,25 @@ The role uses the following variables:
 
 | Name | Description | Default |
 |---------|-------------|---------|
-| `tailscale_auth_key` | Auth key used to authenticate the node to Tailscale.<br>Generate it from the Tailscale admin panel: https://login.tailscale.com/admin/settings/keys | *(empty)* |
-| `tailscale_hostname` | Hostname shown in the Tailscale admin console | `{{ ansible_hostname }}` |
-| `tailscale_extra_args` | Extra agruments list for Tailscale | *(empty)* |
+| `tailscale_accept_dns` | Enable DNS acceptance for tailscale subnet | `false` |
+| `tailscale_advertise_routes` | List of subnet routes | *(empty)* |
+| `tailscale_auth_key` | Authentication key used to connect the node to tailscale.<br>Generated on the admin panel: https://login.tailscale.com/admin/settings/keys | *(empty)* |
+| `tailscale_hostname` | Hostname shown in the admin console | `{{ ansible_hostname }}` |
 
 ## Playbook example
 
 ```yaml
 - name: Deploy Tailscale
   hosts: servers
-  become: true
-  roles:
-    - role: cornelcristea.tailsclae
+  gather_facts: true
   vars:
-    tailscale_auth_key: "my-encrypted-auth-key"
-    tailscale_extra_args:
-      - "--advertise-routes=192.168.1.0/24"
-      - "--accept-dns=false"
+    tailscale_auth_key: "encrypted-auth-key"
+    tailscale_advertise_routes:
+      - "192.168.1.0/24"
+      - "192.168.5.0/20"
+    tailscale_accept_dns: true
+  roles:
+    - cornelcristea.tailsclae
 ```
 
 ## How to contribute

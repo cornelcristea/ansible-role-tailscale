@@ -7,12 +7,10 @@
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: "0755"
 
 - name: Start tailscale container
   become: true
-  vars:
-    routes_defined: "{{ tailscale_routes is defined and (tailscale_routes | length > 0) }}"
   community.docker.docker_container:
     name: tailscale
     image: "{{ tailscale_docker_image }}"
@@ -23,10 +21,12 @@
       TS_AUTHKEY: "{{ tailscale_auth_key }}"
       TS_HOSTNAME: "{{ tailscale_hostname }}"
       TS_STATE_DIR: "{{ tailscale_dir }}"
-      TS_EXTRA_ARGS: "{{ (tailscale_extra_args | join(' ')) | default(omit) }}"
+      TS_EXTRA_ARGS: >
+        --advertise-routes={{ (tailscale_advertise_routes | join(',')) | default(omit) }} 
+        --accept-dns={{ tailscale_accept_dns }}
     volumes:
       - "{{ tailscale_dir }}:/var/lib/tailscale"
-    network_mode: "host"
+    network_mode: host
     capabilities:
       - NET_ADMIN
       - NET_RAW
